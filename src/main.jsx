@@ -39,8 +39,10 @@ function formatTime(totalSeconds) {
 
 function App() {
   const stageRef = useRef(null)
-  const [slideIndex, setSlideIndex] = useState(0)
-  const [transitionDirection, setTransitionDirection] = useState('forward')
+  const [{ slideIndex, transitionDirection }, setPresentation] = useState({
+    slideIndex: 0,
+    transitionDirection: 'forward',
+  })
   const [notesOpen, setNotesOpen] = useState(false)
   const [fullscreenAvailable] = useState(() => Boolean(document.fullscreenEnabled))
   const currentSlide = slides[slideIndex]
@@ -49,21 +51,25 @@ function App() {
 
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === 'ArrowRight' && slideIndex < slides.length - 1) {
+      if (event.key === 'ArrowRight') {
         event.preventDefault()
-        setTransitionDirection('forward')
-        setSlideIndex((index) => index + 1)
+        setPresentation((current) => {
+          if (current.slideIndex === slides.length - 1) return current
+          return { slideIndex: current.slideIndex + 1, transitionDirection: 'forward' }
+        })
       }
-      if (event.key === 'ArrowLeft' && slideIndex > 0) {
+      if (event.key === 'ArrowLeft') {
         event.preventDefault()
-        setTransitionDirection('backward')
-        setSlideIndex((index) => index - 1)
+        setPresentation((current) => {
+          if (current.slideIndex === 0) return current
+          return { slideIndex: current.slideIndex - 1, transitionDirection: 'backward' }
+        })
       }
       if (event.key.toLowerCase() === 'n') setNotesOpen((open) => !open)
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [slideIndex])
+  }, [])
 
   const enterFullscreen = async () => {
     if (stageRef.current?.requestFullscreen) await stageRef.current.requestFullscreen()
@@ -75,13 +81,13 @@ function App() {
         <div className="progress-track" aria-hidden="true"><span className="progress-line" style={{ inlineSize: `${progress}%` }} /></div>
         <CurrentSlide slide={currentSlide} />
         <div className="stage-controls">
-          <button className="notes-toggle" type="button" onClick={() => setNotesOpen((open) => !open)} aria-expanded={notesOpen} aria-controls="speaker-notes">یادداشت‌ها <kbd>N</kbd></button>
+          <p className="notes-hint">یادداشت‌ها <kbd>N</kbd></p>
           <p className="slide-counter" dir="ltr">{String(slideIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</p>
           {fullscreenAvailable && <button className="fullscreen-button" type="button" onClick={enterFullscreen}>تمام‌صفحه</button>}
         </div>
         {notesOpen && (
           <aside className="speaker-notes" id="speaker-notes" aria-label="یادداشت گوینده">
-            <div className="notes-heading"><p>یادداشت گوینده</p><button type="button" onClick={() => setNotesOpen(false)} aria-label="بستن یادداشت‌ها">×</button></div>
+            <div className="notes-heading"><p>یادداشت گوینده</p><span aria-hidden="true">N</span></div>
             <h2>{currentSlide.title}</h2>
             <dl><div><dt>زمان هدف</dt><dd dir="ltr">{formatTime(currentSlide.durationSeconds)}</dd></div><div><dt>زمان تجمعی</dt><dd dir="ltr">{formatTime(currentSlide.cumulativeSeconds)}</dd></div></dl>
             <p>{currentSlide.notes}</p>

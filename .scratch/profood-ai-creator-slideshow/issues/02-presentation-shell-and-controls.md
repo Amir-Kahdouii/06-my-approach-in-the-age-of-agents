@@ -1,7 +1,7 @@
 # ساخت stage ارائه، ناوبری و یادداشت گوینده
 
 Type: task
-Status: open
+Status: complete
 Blocked by: 01
 Spec: `../spec.md`
 
@@ -52,3 +52,7 @@ Spec: `../spec.md`
 - اجرای build برای تشخیص خطاهای integration
 
 ## Comments
+
+- پیاده‌سازی در commit `4850fbc` آغاز شد و پس از بازبینی در commit بعدی تکمیل شد.
+  `npm run build` موفق است و کنترل تعاملی keyboard، مرزهای سریع، notes با کلید `N` و
+  نسبت stage در مرورگر بررسی شدند.
