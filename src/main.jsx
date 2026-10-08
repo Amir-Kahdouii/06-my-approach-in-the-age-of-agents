@@ -79,7 +79,9 @@ function App() {
     <main className="presentation-shell" aria-label="ارائهٔ ساختن دیگر گلوگاه نیست">
       <section ref={stageRef} className={`presentation-stage direction-${transitionDirection}`} aria-describedby="slide-announcement">
         <div className="progress-track" aria-hidden="true"><span className="progress-line" style={{ inlineSize: `${progress}%` }} /></div>
-        <CurrentSlide slide={currentSlide} />
+        <div className={`slide-transition slide-transition-${transitionDirection}`} key={currentSlide.id}>
+          <CurrentSlide slide={currentSlide} />
+        </div>
         <div className="stage-controls">
           <p className="notes-hint">یادداشت‌ها <kbd>N</kbd></p>
           <p className="slide-counter" dir="ltr">{String(slideIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</p>

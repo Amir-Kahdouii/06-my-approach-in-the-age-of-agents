@@ -1,18 +1,27 @@
-:root { color: #163300; background: #e8ebe6; font-family: Vazirmatn, Tahoma, sans-serif; font-synthesis: none; }
+:root { --forest-ink: #163300; --lime-voltage: #9fe870; --linen-mist: #e2f6d5; --fog: #e8ebe6; --charcoal: #454745; --paper: #fff; --slide-duration: 540ms; color: var(--forest-ink); background: var(--fog); font-family: Vazirmatn, Tahoma, sans-serif; font-synthesis: none; }
 * { box-sizing: border-box; }
 html, body, #root { min-width: 320px; min-height: 100%; margin: 0; }
 body { min-height: 100vh; }
 button { font: inherit; }
 button:focus-visible { outline: 3px solid #9fe870; outline-offset: 3px; }
 .presentation-shell { display: grid; min-height: 100vh; place-items: center; overflow: hidden; background: #e8ebe6; }
-.presentation-stage { position: relative; display: grid; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; overflow: hidden; color: #163300; background: #fff; box-shadow: 0 0 0 1px rgba(22, 51, 0, .09); }
+.presentation-stage { position: relative; display: grid; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; overflow: hidden; color: var(--forest-ink); background: var(--paper); box-shadow: 0 0 0 1px rgba(22, 51, 0, .09); }
 .presentation-stage:fullscreen { width: 100vw; height: 100vh; }
 .progress-track { position: absolute; z-index: 2; inset-block-start: 0; inset-inline: 0; block-size: clamp(3px, .35vw, 6px); background: #e2f6d5; }
 .progress-line { display: block; block-size: 100%; background: #9fe870; }
+.slide-transition { display: grid; min-inline-size: 0; animation: slide-in-forward var(--slide-duration) cubic-bezier(.2, .8, .2, 1) both; }
+.slide-transition-backward { animation-name: slide-in-backward; }
 .placeholder-slide { display: grid; align-content: center; justify-items: center; gap: clamp(1.5rem, 3vw, 3.25rem); padding: clamp(3rem, 9vw, 11rem); text-align: center; }
 .placeholder-slide p { margin: 0; color: #454745; font-size: clamp(1rem, 1.7vw, 1.5rem); font-weight: 600; }
 .placeholder-slide h1 { max-width: 15ch; margin: 0; color: #163300; font-size: clamp(2.75rem, 6.5vw, 7rem); font-weight: 900; letter-spacing: -.07em; line-height: 1.03; }
 .typing-cursor { display: block; inline-size: clamp(.35rem, .7vw, .75rem); block-size: clamp(2rem, 4.5vw, 5rem); background: #9fe870; }
+.slide-surface { background: var(--paper); color: var(--forest-ink); }
+.display-heading { font-size: clamp(3rem, 7vw, 7rem); font-weight: 900; line-height: 1.03; }
+.product-frame { overflow: hidden; background: var(--paper); border: 1px solid var(--forest-ink); border-radius: .625rem; }
+.pill-tag { display: inline-flex; padding: .35rem .75rem; color: var(--forest-ink); background: var(--linen-mist); border-radius: 999px; font-weight: 700; }
+.glass-link-card { color: var(--forest-ink); background: rgb(255 255 255 / .72); border: 1px solid rgb(22 51 0 / .24); border-radius: .625rem; backdrop-filter: blur(8px); }
+@keyframes slide-in-forward { from { transform: translateX(5%); } to { transform: translateX(0); } }
+@keyframes slide-in-backward { from { transform: translateX(-5%); } to { transform: translateX(0); } }
 .stage-controls { position: absolute; z-index: 3; inset-inline: clamp(1rem, 2vw, 2rem); inset-block-end: clamp(1rem, 2vw, 2rem); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; pointer-events: none; }
 .notes-hint { justify-self: start; margin: 0; padding: .5rem .9rem; color: #454745; font-size: clamp(.8rem, 1.2vw, 1rem); font-weight: 650; }
 .notes-hint kbd { margin-inline-start: .45rem; padding: .05rem .32rem; border: 1px solid #e8ebe6; border-radius: .25rem; font-family: inherit; font-size: .75em; }
@@ -31,4 +40,4 @@ button:focus-visible { outline: 3px solid #9fe870; outline-offset: 3px; }
 .speaker-notes > p { margin: 0; font-size: clamp(.95rem, 1.3vw, 1.1rem); line-height: 2; }
 .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @media (max-width: 700px) { .presentation-shell { place-items: start center; } .presentation-stage { width: 100vw; align-self: start; } .stage-controls { grid-template-columns: 1fr auto; } .fullscreen-button { display: none; } .slide-counter { justify-self: end; } .speaker-notes { inset-inline: .75rem; width: auto; max-block-size: 76%; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0ms !important; scroll-behavior: auto !important; transition-duration: 0ms !important; } }
