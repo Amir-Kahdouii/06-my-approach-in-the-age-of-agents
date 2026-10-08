@@ -89,7 +89,7 @@ h1 {
   margin: 0;
   padding: clamp(0.75rem, 1.5vw, 1.25rem);
   background: #ffffff;
-  border-radius: 0.75rem;
+  border-radius: 0.625rem;
 }
 
 .preview img {

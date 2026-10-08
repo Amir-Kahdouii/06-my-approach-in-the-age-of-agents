@@ -1,7 +1,7 @@
 # راه‌اندازی React/Vite و خروجی تک‌فایل آفلاین
 
 Type: task
-Status: open
+Status: complete
 Blocked by: none
 Spec: `../spec.md`
 
@@ -45,3 +45,7 @@ Spec: `../spec.md`
 - بررسی Network مرورگر در حالت Offline
 
 ## Comments
+
+- پیاده‌سازی در commit `24b4809` انجام شد. `npm run build` با موفقیت اجرا شد و
+  `dist/` فقط شامل `index.html` است؛ JavaScript، CSS، Vazirmatn و هر سه تصویر به
+  خروجی inline شده‌اند. بازشدن مستقیم با `file://` در Chrome نیز بررسی شد.
