@@ -1,7 +1,7 @@
 # پیاده‌سازی سیستم بصری فارسی و حرکت اسلایدها
 
 Type: task
-Status: open
+Status: complete
 Blocked by: 02
 Spec: `../spec.md`
 
@@ -56,3 +56,6 @@ Spec: `../spec.md`
 - بررسی keyboard focus و contrast اجزای اصلی
 
 ## Comments
+
+- tokenهای بصری، primitiveهای موردنیاز و transition جهت‌دار ۵۴۰ms پیاده‌سازی شدند.
+  `prefers-reduced-motion` همهٔ motionها را فوری می‌کند و `npm run build` موفق است.
