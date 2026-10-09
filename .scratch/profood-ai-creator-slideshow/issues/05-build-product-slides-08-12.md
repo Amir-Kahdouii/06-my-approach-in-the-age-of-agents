@@ -1,7 +1,7 @@
 # ساخت اسلایدهای محصول و نتیجه ۸ تا ۱۲
 
 Type: task
-Status: open
+Status: complete
 Blocked by: 04
 Spec: `../spec.md`
 
