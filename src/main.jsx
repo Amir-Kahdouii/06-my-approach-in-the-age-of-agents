@@ -100,7 +100,7 @@ const SlideSeven = () => (
       <h1 id="slide-title-7">نه همه‌ی باشگاه‌ها؛<br />همین باشگاه. همین آدم‌ها. همین مسئله.</h1>
       <p>اگر اینجا کار کرد، بعداً فرصت گسترش وجود دارد.</p>
     </div>
-    <div className="focus-circles" aria-hidden="true"><i>باشگاه‌ها</i><i>آدم‌ها</i><i>مسئله‌ها</i><b /></div>
+    <div className="focus-circles" aria-hidden="true"><span className="focus-circle">باشگاه‌ها</span><span className="focus-circle">آدم‌ها</span><span className="focus-circle">مسئله‌ها</span><span className="focus-point" /></div>
   </StorySlide>
 )
 
