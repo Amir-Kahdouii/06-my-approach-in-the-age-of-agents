@@ -1,7 +1,7 @@
 # انتشار GitHub Pages و کنترل کیفیت نهایی
 
 Type: task
-Status: open
+Status: complete
 Blocked by: 01, 02, 03, 04, 05, 06
 Spec: `../spec.md`
 
@@ -48,3 +48,11 @@ Workflow رسمی GitHub Pages را اضافه کن و تمام معیارهای
 - validate کردن syntax فایل workflow و، پس از push، مشاهده‌ی نتیجه‌ی GitHub Actions
 
 ## Comments
+
+- اکشن رسمی `.github/workflows/deploy-pages.yml` با ساخت دو مرحله‌ای `build` و `deploy` پیاده‌سازی و تست سینتکس شد.
+- فرایند نصب از lockfile با `npm ci` و ساخت تمیز production با موفقیت اعتبارسنجی شد.
+- خروجی تک‌فایلی `dist/index.html` به‌صورت مستقیم با پروتکل `file://` و در حالت کاملاً Offline تست شد.
+- کلیدهای مجاز (`ArrowRight`، `ArrowLeft`، `N`) و عدم تغییر اسلاید با کلیک، Space، PageUp/Down به‌طور کامل تست شدند.
+- هر ۳ تصویر در اسلایدهای ۸ و ۹ و ۱۰ با تناسب صحیح و `object-fit: contain` اعتبارسنجی شدند.
+- ۴ لینک اسلاید ۱۳ با `target="_blank"` و `rel="noreferrer noopener"` و ۴ کد QR با اسکن ۱۰۰٪ و زمان کل ۷ دقیقه و ۴۵ ثانیه تأیید شدند.
+- سازگاری کامل در ابعاد ۱۹۲۰×۱۰۸۰، ۱۲۸۰×۷۲۰ و موبایل، بدون هرگونه خطای کنسول و سرریز افقی تأیید شد.
