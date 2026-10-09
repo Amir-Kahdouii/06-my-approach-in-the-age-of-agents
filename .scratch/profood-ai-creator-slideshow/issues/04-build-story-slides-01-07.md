@@ -1,7 +1,7 @@
 # ساخت اسلایدهای روایی ۱ تا ۷
 
 Type: task
-Status: open
+Status: complete
 Blocked by: 03
 Spec: `../spec.md`
 
@@ -46,3 +46,5 @@ Spec: `../spec.md`
 - تطبیق کلمه‌به‌کلمه‌ی notes با بخش‌های مربوطه در spec
 
 ## Comments
+
+- اسلایدهای ۱ تا ۷ با متن و speaker notes مصوب پیاده‌سازی شدند. sequenceهای رسید گم‌شده، شکست «همه» و همگرایی سه دایره اضافه شد؛ build تولیدی با `npm run build` موفق است.
