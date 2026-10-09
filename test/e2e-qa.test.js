@@ -48,7 +48,7 @@ test('Seam 3: End-to-End Headless QA on file:// with offline mode and navigation
     assert.equal(counter, '01 / 13', 'Presentation must start on slide 1')
 
     const slide1Title = await page.$eval('#slide-title-1', (el) => el.textContent.trim())
-    assert.ok(slide1Title.includes('ساختن دیگر'), 'Slide 1 title must be present')
+    assert.ok(slide1Title.includes('ساختن دیگه'), 'Slide 1 title must be present')
 
     // 2. Keyboard Isolation: Non-navigation keys must not advance
     await page.keyboard.press('ArrowLeft') // Lower boundary
@@ -81,9 +81,36 @@ test('Seam 3: End-to-End Headless QA on file:// with offline mode and navigation
     await page.keyboard.press('n') // Close notes
     await page.waitForSelector('.speaker-notes', { hidden: true })
 
+    // 3.5. Slide 2 Interactive Click-to-Reveal and Content Verification
+    await page.keyboard.press('ArrowRight')
+    await new Promise((r) => setTimeout(r, 60))
+    counter = await page.$eval('.slide-counter', (el) => el.textContent.trim())
+    assert.equal(counter, '02 / 13', 'Must be on slide 2')
+
+    // Verify initial unrevealed state
+    let slide2State = await page.$eval('.slide-two', (el) => el.className)
+    assert.ok(slide2State.includes('is-initial'), 'Slide 2 must initially be unrevealed')
+    let isHidden = await page.$eval('.slide-two-answer', (el) => el.className)
+    assert.ok(isHidden.includes('is-hidden'), 'Slide 2 answer must initially be hidden')
+
+    // Verify exponential line chart motif exists at top-left
+    const chartExists = await page.$('.corner-chart-motif')
+    assert.ok(chartExists, 'Slide 2 must have exponential line chart motif')
+
+    // Click slide-two to reveal
+    await page.click('.slide-two')
+    await new Promise((r) => setTimeout(r, 100))
+
+    slide2State = await page.$eval('.slide-two', (el) => el.className)
+    assert.ok(slide2State.includes('is-revealed'), 'Slide 2 must be revealed after click')
+    const slide2Title = await page.$eval('#slide-title-2', (el) => el.textContent.trim())
+    assert.equal(slide2Title, 'چی بسازم؟', 'Slide 2 heading must be "چی بسازم؟"')
+    const slide2Kicker = await page.$eval('.slide-two-answer p', (el) => el.textContent.trim())
+    assert.equal(slide2Kicker, 'با رشد AI، سؤال اصلی عوض شده', 'Slide 2 kicker must match spec')
+
     // 4. Step through slides to check product images on Slides 8, 9, 10
-    // Advance to Slide 8 (press ArrowRight 7 times)
-    for (let i = 0; i < 7; i++) {
+    // Advance to Slide 8 (press ArrowRight 6 more times from slide 2)
+    for (let i = 0; i < 6; i++) {
       await page.keyboard.press('ArrowRight')
       await new Promise((r) => setTimeout(r, 60))
     }

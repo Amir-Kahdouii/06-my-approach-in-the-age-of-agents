@@ -16,33 +16,124 @@ const PlaceholderSlide = ({ slide }) => (
   </section>
 )
 
-const StorySlide = ({ children, className = '', labelledBy }) => (
-  <section className={`story-slide ${className}`} aria-labelledby={labelledBy}>
+const StorySlide = ({ children, className = '', labelledBy, ...props }) => (
+  <section className={`story-slide ${className}`} aria-labelledby={labelledBy} {...props}>
     {children}
   </section>
 )
 
 const SlideOne = () => (
   <StorySlide className="slide-one" labelledBy="slide-title-1">
-    <div className="slide-one-copy">
-      <p className="story-kicker">زندگی یک مهندس نرم‌افزار در عصر هوش مصنوعی</p>
-      <h1 id="slide-title-1">ساختن دیگر<br />گلوگاه نیست</h1>
-      <p className="story-question">سؤال سخت‌تر: چه چیزی ارزش ساختن دارد؟</p>
+    <div className="corner-pie-motif" aria-hidden="true">
+      <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="120" fill="rgba(226, 246, 213, 0.28)" stroke="rgba(22, 51, 0, 0.06)" strokeWidth="1.5" />
+        <path d="M 130 130 L 130 20 A 110 110 0 1 1 38 190 Z" fill="rgba(226, 246, 213, 0.55)" />
+        <path d="M 130 130 L 38 190 A 110 110 0 0 1 130 20 Z" fill="rgba(159, 232, 112, 0.32)" stroke="rgba(22, 51, 0, 0.08)" strokeWidth="1" />
+        <circle cx="130" cy="130" r="48" fill="#ffffff" stroke="rgba(22, 51, 0, 0.06)" strokeWidth="1.5" />
+        <circle cx="130" cy="130" r="22" fill="rgba(159, 232, 112, 0.2)" />
+        <circle cx="210" cy="205" r="75" fill="rgba(240, 248, 235, 0.65)" stroke="rgba(22, 51, 0, 0.08)" strokeWidth="1.5" />
+        <path d="M 210 205 L 210 135 A 70 70 0 0 1 275 230 Z" fill="rgba(159, 232, 112, 0.45)" />
+        <circle cx="210" cy="205" r="30" fill="#ffffff" stroke="rgba(22, 51, 0, 0.05)" strokeWidth="1" />
+        <circle cx="65" cy="245" r="18" fill="rgba(226, 246, 213, 0.85)" stroke="rgba(159, 232, 112, 0.6)" strokeWidth="1.5" />
+        <circle cx="130" cy="130" r="135" stroke="rgba(22, 51, 0, 0.08)" strokeWidth="1" strokeDasharray="4 6" />
+      </svg>
     </div>
-    <div className="cursor-motif" aria-hidden="true"><i /><span>اینجا شروع می‌کنم</span></div>
+    <div className="slide-one-copy">
+      <h1 id="slide-title-1">ساختن دیگه زمان‌بر نیست</h1>
+      <p className="story-question">سوال مهم: چه چیزی بسازیم؟</p>
+    </div>
   </StorySlide>
 )
 
-const SlideTwo = () => (
-  <StorySlide className="slide-two" labelledBy="slide-title-2">
-    <div className="question-shift" aria-hidden="true"><span>چطور بسازم؟</span><b>←</b></div>
-    <div className="slide-two-answer">
-      <p>گلوگاه جابه‌جا شده</p>
-      <h1 id="slide-title-2">چه بسازم؟</h1>
-      <small>سریع‌تر ساختن، مسئله‌ی درست را انتخاب نمی‌کند.</small>
-    </div>
-  </StorySlide>
-)
+const SlideTwo = () => {
+  const [revealed, setRevealed] = useState(false)
+
+  return (
+    <StorySlide
+      className={`slide-two ${revealed ? 'is-revealed' : 'is-initial'}`}
+      labelledBy="slide-title-2"
+      onClick={() => setRevealed((prev) => !prev)}
+      tabIndex={0}
+      role="region"
+      aria-label="اسلاید ۲: برای نمایش سؤال اصلی کلیک کنید"
+      onKeyDown={(e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault()
+          setRevealed((prev) => !prev)
+        }
+      }}
+    >
+      <div className="corner-chart-motif" aria-hidden="true">
+        <div className="chart-card">
+          <div className="chart-header">
+            <span className="chart-badge">
+              <span className="chart-pulse-dot" />
+              رشد AI
+            </span>
+            <span className="chart-trend-tag">نمایی ↑</span>
+          </div>
+          <svg viewBox="0 0 240 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="exponential-chart-svg">
+            <defs>
+              <linearGradient id="exponentialFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#9fe870" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#9fe870" stopOpacity="0.0" />
+              </linearGradient>
+              <linearGradient id="exponentialStroke" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stopColor="#163300" />
+                <stop offset="65%" stopColor="#163300" />
+                <stop offset="100%" stopColor="#9fe870" />
+              </linearGradient>
+            </defs>
+            <line x1="25" y1="120" x2="225" y2="120" stroke="rgba(22, 51, 0, 0.14)" strokeWidth="1" />
+            <line x1="25" y1="80" x2="225" y2="80" stroke="rgba(22, 51, 0, 0.08)" strokeDasharray="3 3" strokeWidth="1" />
+            <line x1="25" y1="40" x2="225" y2="40" stroke="rgba(22, 51, 0, 0.08)" strokeDasharray="3 3" strokeWidth="1" />
+            <path
+              d="M 28 120 C 85 119, 140 105, 172 70 C 192 48, 208 28, 220 16 L 220 120 Z"
+              fill="url(#exponentialFill)"
+            />
+            <path
+              d="M 28 120 C 85 119, 140 105, 172 70 C 192 48, 208 28, 220 16"
+              stroke="url(#exponentialStroke)"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              className="exponential-curve-path"
+            />
+            <circle cx="220" cy="16" r="9" fill="rgba(159, 232, 112, 0.45)" />
+            <circle cx="220" cy="16" r="4" fill="#163300" stroke="#9fe870" strokeWidth="2.5" />
+            <path d="M 221 117 L 226 120 L 221 123" stroke="rgba(22, 51, 0, 0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <div className="chart-footer">
+            <span>سرعت ساخت</span>
+            <span className="chart-val">100×</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={`question-shift ${revealed ? 'is-revealed' : 'is-initial'}`} aria-hidden="true">
+        <span className="question-text">چطور بسازم؟</span>
+        <span className="question-arrow-box">
+          <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M16 10H4" />
+            <path d="M9 15l-5-5 5-5" />
+          </svg>
+        </span>
+      </div>
+
+      <div className={`slide-two-answer ${revealed ? 'is-revealed' : 'is-hidden'}`}>
+        <p>با رشد AI، سؤال اصلی عوض شده</p>
+        <h1 id="slide-title-2">چی بسازم؟</h1>
+        <small>سریع‌تر ساختن، مسئله‌ی درست را انتخاب نمی‌کند.</small>
+      </div>
+
+      {!revealed && (
+        <div className="slide-two-click-cue" aria-hidden="true">
+          <span className="click-cue-pulse" />
+          <span>برای مشاهدهٔ سؤال اصلی کلیک کنید</span>
+        </div>
+      )}
+    </StorySlide>
+  )
+}
 
 const SlideThree = () => (
   <StorySlide className="slide-three" labelledBy="slide-title-3">
@@ -241,8 +332,8 @@ const SlideThirteen = () => (
 )
 
 const slides = [
-  { id: 1, title: 'ساختن دیگر گلوگاه نیست', durationSeconds: 30, cumulativeSeconds: 30, notes: 'این روزها بیشتر از همیشه کد می‌زنم، اما کمتر از قبل نگران خودِ کدنویسی‌ام. ابزارهای هوش مصنوعی فاصله‌ی بین یک ایده و یک نمونه‌ی قابل استفاده را خیلی کوتاه کرده‌اند. چیزی که ذهن من را درگیر کرده، دیگر این نیست که آیا می‌توانم چیزی را بسازم؛ سؤال سخت‌تر این است که اصلاً چه چیزی ارزش ساختن دارد؟', component: SlideOne },
-  { id: 2, title: 'از چطور بسازم؟ به چه بسازم؟', durationSeconds: 35, cumulativeSeconds: 65, notes: 'قبلاً بخش بزرگی از هزینه و زمان یک ایده صرف پیاده‌سازی می‌شد. امروز می‌توانیم با کمک AI در چند ساعت چیزی بسازیم که قبلاً چند روز یا چند هفته زمان می‌خواست. اما سریع‌تر ساختن لزوماً یعنی بهتر ساختن؟ اگر مسئله‌ی درستی انتخاب نکرده باشیم، فقط با سرعت بیشتری چیزی را ساخته‌ایم که کسی به آن نیاز ندارد.', component: SlideTwo },
+  { id: 1, title: 'ساختن دیگه زمان‌بر نیست', durationSeconds: 30, cumulativeSeconds: 30, notes: 'این روزها بیشتر از همیشه کد می‌زنم، اما کمتر از قبل نگران خودِ کدنویسی‌ام. ابزارهای هوش مصنوعی فاصله‌ی بین یک ایده و یک نمونه‌ی قابل استفاده را خیلی کوتاه کرده‌اند. چیزی که ذهن من را درگیر کرده، دیگر این نیست که آیا می‌توانم چیزی را بسازم؛ سؤال مهم این است که چه چیزی بسازیم؟', component: SlideOne },
+  { id: 2, title: 'از چطور بسازم؟ به چی بسازم؟', durationSeconds: 35, cumulativeSeconds: 65, notes: 'قبلاً بخش بزرگی از هزینه و زمان یک ایده صرف پیاده‌سازی می‌شد. امروز می‌توانیم با کمک AI در چند ساعت چیزی بسازیم که قبلاً چند روز یا چند هفته زمان می‌خواست. اما سریع‌تر ساختن لزوماً یعنی بهتر ساختن؟ اگر مسئله‌ی درستی انتخاب نکرده باشیم، فقط با سرعت بیشتری چیزی را ساخته‌ایم که کسی به آن نیاز ندارد.', component: SlideTwo },
   { id: 3, title: 'برای پیدا کردن ایده، از پشت میز بلند می‌شوم.', durationSeconds: 35, cumulativeSeconds: 100, notes: 'روشی که این روزها امتحان می‌کنم خیلی ساده است. به‌جای شروع از تکنولوژی یا یک بازار خیلی بزرگ، بیشتر به زندگی روزمره نگاه می‌کنم. آدم‌ها کجا معطل می‌شوند؟ چه کاری را هر روز با اصطکاک انجام می‌دهند؟ چه چیزی آن‌ها را کلافه می‌کند؟ مسئله‌های خوب معمولاً در یک جلسه‌ی ایده‌پردازی پیدا نمی‌شوند؛ باید آن‌ها را از نزدیک زندگی کرد.', component: SlideThree },
   { id: 4, title: 'زندگی ← مسئله ← نمونه ← استفاده ← یادگیری', durationSeconds: 30, cumulativeSeconds: 130, notes: 'چرخه‌ای که برای خودم ساخته‌ام این است: وارد زندگی واقعی شو، یک مسئله‌ی کوچک و مشخص پیدا کن، سبک‌ترین راه‌حل ممکن را بساز و آن را دست آدم واقعی بده. اگر استفاده شد و واقعاً کار کسی را بهتر کرد، آن وقت ارزش دارد زمان بیشتری برای بالغ‌کردنش بگذارم. اگر نه، چیزی یاد گرفته‌ام و سراغ تجربه‌ی بعدی می‌روم.', component: SlideFour },
   { id: 5, title: 'تمرین تمام شد. غذا هنوز شروع نشده بود.', durationSeconds: 40, cumulativeSeconds: 170, notes: 'یکی از همین مسئله‌ها در باشگاه خودمان جلوی چشمم بود. دوستم قبل از تمام‌شدن تمرین غذا سفارش داده بود تا بعد از تمرین آماده باشد. تمرین تمام شد، اما خبری از غذا نبود. بعد از کلی انتظار فهمیدیم آشپز سفارش را فراموش کرده. این فقط یک باگ نرم‌افزاری نبود؛ اصلاً نرم‌افزاری وجود نداشت. یک سفارش شفاهی بین شلوغی باشگاه و آشپزخانه گم شده بود.', component: SlideFive },
