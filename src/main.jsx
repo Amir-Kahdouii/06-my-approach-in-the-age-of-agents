@@ -135,43 +135,172 @@ const SlideTwo = () => {
   )
 }
 
+const ideaPillars = [
+  {
+    step: '۰۱',
+    title: 'مشاهده',
+    desc: 'دقت به اصطکاک‌های روزمره',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+  },
+  {
+    step: '۰۲',
+    title: 'پرسیدن',
+    desc: 'شنیدن روایت آدم‌های درگیر',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+      </svg>
+    ),
+  },
+  {
+    step: '۰۳',
+    title: 'تجربه کردن',
+    desc: 'لمس مستقیم و واقعی مسئله',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
+    ),
+  },
+]
+
 const SlideThree = () => (
   <StorySlide className="slide-three" labelledBy="slide-title-3">
-    <div className="slide-three-copy">
-      <p className="story-kicker">ایده از داخل یک تب مرورگر بیرون نمی‌آید</p>
-      <h1 id="slide-title-3">برای پیدا کردن ایده،<br />از پشت میز بلند می‌شوم.</h1>
+    <div className="slide-three-center">
+      <h1 id="slide-title-3" className="slide-three-title">
+        اما چطوری ایده مناسب پیدا کنیم؟
+      </h1>
+      <div className="idea-pillars-grid" aria-label="روش‌های پیدا کردن ایده: مشاهده، پرسیدن، تجربه کردن">
+        {ideaPillars.map((item, index) => (
+          <div
+            key={item.title}
+            className="idea-pillar-card"
+            style={{ '--pillar-index': index }}
+          >
+            <div className="idea-pillar-badge-wrap">
+              <span className="idea-pillar-icon">{item.icon}</span>
+            </div>
+            <h2 className="idea-pillar-title">{item.title}</h2>
+            <p className="idea-pillar-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
-    <div className="verbs" aria-label="دیدن، پرسیدن، تجربه‌کردن"><span>دیدن</span><span>پرسیدن</span><span>تجربه‌کردن</span></div>
   </StorySlide>
 )
 
-const cycleSteps = ['زندگی', 'مسئله', 'نمونه', 'استفاده', 'یادگیری']
+const cycleSteps = ['زندگی', 'مسئله', 'نمونه', 'ارائه', 'یادگیری']
 const SlideFour = () => (
   <StorySlide className="slide-four" labelledBy="slide-title-4">
-    <p className="story-kicker">چرخه‌ی من</p>
-    <h1 id="slide-title-4">زندگی ← مسئله ← نمونه ← استفاده ← یادگیری</h1>
-    <ol className="learning-cycle">
-      {cycleSteps.map((step, index) => <li key={step}><span>{step}</span>{index < cycleSteps.length - 1 && <i aria-hidden="true" />}</li>)}
+    <p className="story-kicker">روش من</p>
+    <h1 id="slide-title-4">روش من اینه</h1>
+    <ol className="learning-cycle" aria-label="چرخه روش من: زندگی، مسئله، نمونه، ارائه، یادگیری">
+      {cycleSteps.map((step, index) => (
+        <li key={step}>
+          <span>{step}</span>
+          {index < cycleSteps.length - 1 && <i aria-hidden="true" />}
+        </li>
+      ))}
     </ol>
     <p className="cycle-caption">یک مسئله‌ی کوچک، یک نمونه‌ی سبک، یک یادگیری واقعی.</p>
   </StorySlide>
 )
 
-const SlideFive = () => (
-  <StorySlide className="slide-five" labelledBy="slide-title-5">
-    <div className="order-story-copy">
-      <p className="story-kicker">باشگاه خودمان، بعد از تمرین</p>
-      <h1 id="slide-title-5">تمرین تمام شد.<br />غذا هنوز شروع نشده بود.</h1>
-      <p>آشپز سفارش دوستم را فراموش کرده بود.</p>
-    </div>
-    <div className="receipt-queue" aria-label="صف سفارش‌ها">
-      <p>صف سفارش‌ها</p>
-      <div className="receipt receipt-complete"><span>پروتئین + برنج</span><b>آماده</b></div>
-      <div className="receipt receipt-lost"><span>سفارش دوست من</span><b>؟</b></div>
-      <div className="receipt receipt-complete"><span>املت سبزیجات</span><b>آماده</b></div>
-    </div>
-  </StorySlide>
-)
+const SlideFive = () => {
+  const [orderLost, setOrderLost] = useState(false)
+
+  return (
+    <StorySlide
+      className={`slide-five ${orderLost ? 'is-lost' : 'is-initial'}`}
+      labelledBy="slide-title-5"
+      onClick={() => setOrderLost((prev) => !prev)}
+      tabIndex={0}
+      role="region"
+      aria-label="اسلاید ۵: برای شبیه‌سازی گم‌شدن سفارش کلیک کنید"
+      onKeyDown={(e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault()
+          setOrderLost((prev) => !prev)
+        }
+      }}
+    >
+      <div className="order-story-copy">
+        <p className="story-kicker">مثال: باشگاه خودمون بعد از تمرین</p>
+        <h1 id="slide-title-5">
+          <span className="order-headline-line">بعد از تمام شدن تمرین،</span>
+          <span className="order-headline-line">غذا هنوز آماده نشده بود</span>
+        </h1>
+
+        <p className="order-story-subtitle">سفارش یکی از دوستان گم شد</p>
+      </div>
+      <div className="receipt-queue" aria-label="صف سفارش‌ها">
+        <div className="receipt-queue-header">
+          <p>صف سفارش‌ها</p>
+          {orderLost && (
+            <span className="receipt-lost-badge" aria-hidden="true">
+              سفارش گم شد
+            </span>
+          )}
+        </div>
+        <div className="receipt-items-list">
+          <div className="receipt receipt-complete">
+            <span>پروتئین + برنج</span>
+            <b>آماده</b>
+          </div>
+          <div className={`receipt-lost-slot ${orderLost ? 'is-lost' : ''}`}>
+            <div className="receipt-lost-inner">
+              <div className="receipt receipt-lost">
+                <span>سفارش یکی از دوستان</span>
+                <b>؟</b>
+              </div>
+            </div>
+          </div>
+          <div className="receipt receipt-complete">
+            <span>املت سبزیجات</span>
+            <b>آماده</b>
+          </div>
+        </div>
+      </div>
+      {!orderLost && (
+        <div className="slide-five-click-cue" aria-hidden="true">
+          <span className="click-cue-pulse" />
+          <span>برای مشاهدهٔ گم‌شدن سفارش کلیک کنید</span>
+        </div>
+      )}
+    </StorySlide>
+  )
+}
+
 
 const SlideSix = () => (
   <StorySlide className="slide-six" labelledBy="slide-title-6">
@@ -334,9 +463,9 @@ const SlideThirteen = () => (
 const slides = [
   { id: 1, title: 'ساختن دیگه زمان‌بر نیست', durationSeconds: 30, cumulativeSeconds: 30, notes: 'این روزها بیشتر از همیشه کد می‌زنم، اما کمتر از قبل نگران خودِ کدنویسی‌ام. ابزارهای هوش مصنوعی فاصله‌ی بین یک ایده و یک نمونه‌ی قابل استفاده را خیلی کوتاه کرده‌اند. چیزی که ذهن من را درگیر کرده، دیگر این نیست که آیا می‌توانم چیزی را بسازم؛ سؤال مهم این است که چه چیزی بسازیم؟', component: SlideOne },
   { id: 2, title: 'از چطور بسازم؟ به چی بسازم؟', durationSeconds: 35, cumulativeSeconds: 65, notes: 'قبلاً بخش بزرگی از هزینه و زمان یک ایده صرف پیاده‌سازی می‌شد. امروز می‌توانیم با کمک AI در چند ساعت چیزی بسازیم که قبلاً چند روز یا چند هفته زمان می‌خواست. اما سریع‌تر ساختن لزوماً یعنی بهتر ساختن؟ اگر مسئله‌ی درستی انتخاب نکرده باشیم، فقط با سرعت بیشتری چیزی را ساخته‌ایم که کسی به آن نیاز ندارد.', component: SlideTwo },
-  { id: 3, title: 'برای پیدا کردن ایده، از پشت میز بلند می‌شوم.', durationSeconds: 35, cumulativeSeconds: 100, notes: 'روشی که این روزها امتحان می‌کنم خیلی ساده است. به‌جای شروع از تکنولوژی یا یک بازار خیلی بزرگ، بیشتر به زندگی روزمره نگاه می‌کنم. آدم‌ها کجا معطل می‌شوند؟ چه کاری را هر روز با اصطکاک انجام می‌دهند؟ چه چیزی آن‌ها را کلافه می‌کند؟ مسئله‌های خوب معمولاً در یک جلسه‌ی ایده‌پردازی پیدا نمی‌شوند؛ باید آن‌ها را از نزدیک زندگی کرد.', component: SlideThree },
-  { id: 4, title: 'زندگی ← مسئله ← نمونه ← استفاده ← یادگیری', durationSeconds: 30, cumulativeSeconds: 130, notes: 'چرخه‌ای که برای خودم ساخته‌ام این است: وارد زندگی واقعی شو، یک مسئله‌ی کوچک و مشخص پیدا کن، سبک‌ترین راه‌حل ممکن را بساز و آن را دست آدم واقعی بده. اگر استفاده شد و واقعاً کار کسی را بهتر کرد، آن وقت ارزش دارد زمان بیشتری برای بالغ‌کردنش بگذارم. اگر نه، چیزی یاد گرفته‌ام و سراغ تجربه‌ی بعدی می‌روم.', component: SlideFour },
-  { id: 5, title: 'تمرین تمام شد. غذا هنوز شروع نشده بود.', durationSeconds: 40, cumulativeSeconds: 170, notes: 'یکی از همین مسئله‌ها در باشگاه خودمان جلوی چشمم بود. دوستم قبل از تمام‌شدن تمرین غذا سفارش داده بود تا بعد از تمرین آماده باشد. تمرین تمام شد، اما خبری از غذا نبود. بعد از کلی انتظار فهمیدیم آشپز سفارش را فراموش کرده. این فقط یک باگ نرم‌افزاری نبود؛ اصلاً نرم‌افزاری وجود نداشت. یک سفارش شفاهی بین شلوغی باشگاه و آشپزخانه گم شده بود.', component: SlideFive },
+  { id: 3, title: 'اما چطوری ایده مناسب پیدا کنیم؟', durationSeconds: 35, cumulativeSeconds: 100, notes: 'روشی که این روزها امتحان می‌کنم خیلی ساده است. به‌جای شروع از تکنولوژی یا یک بازار خیلی بزرگ، بیشتر به زندگی روزمره نگاه می‌کنم. آدم‌ها کجا معطل می‌شوند؟ چه کاری را هر روز با اصطکاک انجام می‌دهند؟ چه چیزی آن‌ها را کلافه می‌کند؟ مسئله‌های خوب معمولاً در یک جلسه‌ی ایده‌پردازی پیدا نمی‌شوند؛ باید آن‌ها را از نزدیک زندگی کرد.', component: SlideThree },
+  { id: 4, title: 'روش من اینه', durationSeconds: 30, cumulativeSeconds: 130, notes: 'روش من این است: در جریان زندگی مسئله‌ها را پیدا می‌کنم، برای هر مسئله یک نمونه‌ی اولیه و سبک می‌سازم، آن را ارائه می‌دهم و از بازخورد و نتیجه یاد می‌گیرم.', component: SlideFour },
+  { id: 5, title: 'بعد از تمام شدن تمرین، غذا هنوز آماده نشده بود', durationSeconds: 40, cumulativeSeconds: 170, notes: 'یکی از همین مسئله‌ها در باشگاه خودمان جلوی چشمم بود. دوستم قبل از تمام‌شدن تمرین غذا سفارش داده بود تا بعد از تمرین آماده باشد. تمرین تمام شد، اما خبری از غذا نبود. بعد از کلی انتظار فهمیدیم آشپز سفارش را فراموش کرده. این فقط یک باگ نرم‌افزاری نبود؛ اصلاً نرم‌افزاری وجود نداشت. یک سفارش شفاهی بین شلوغی باشگاه و آشپزخانه گم شده بود.', component: SlideFive },
   { id: 6, title: 'نسخه‌ی اول را برای همه‌ی باشگاه‌ها ساختم.', durationSeconds: 40, cumulativeSeconds: 210, notes: 'اولین واکنش من همان اشتباه آشنای یک برنامه‌نویس بود: بیایید یک راه‌حل عمومی برای همه‌ی باشگاه‌ها بسازیم. سناریوهای مختلف، نیازهای مختلف و قابلیت‌های زیاد. خیلی زود در contextهای متفاوت و user storyهای بی‌پایان گم شدم. قبل از اینکه یک مسئله را خوب حل کنم، داشتم برای آدم‌هایی که نمی‌شناختم محصول طراحی می‌کردم. نسخه‌ی اول شکست خورد و اتفاقاً لازم بود شکست بخورد.', component: SlideSix },
   { id: 7, title: 'نه همه‌ی باشگاه‌ها؛ همین باشگاه. همین آدم‌ها. همین مسئله.', durationSeconds: 35, cumulativeSeconds: 245, notes: 'شکست نسخه‌ی اول یک چیز مهم یادم داد: صورت مسئله باید مرز داشته باشد. تصمیم گرفتم فعلاً بازار بزرگ، مقیاس و قابلیت‌های آینده را فراموش کنم. فقط مسئله‌ی خودمان در باشگاه خودمان را برای یک گروه کوچک از آدم‌هایی که می‌شناختم حل کنم. اگر این راه‌حل اینجا کار کرد، بعداً فرصت گسترش وجود دارد.', component: SlideSeven },
   { id: 8, title: 'سفارش قبل از پایان تمرین', durationSeconds: 35, cumulativeSeconds: 280, notes: 'نتیجه شد pro-food؛ یک راه‌حل سبک برای سفارش آنلاین غذای باشگاه. ورزشکار قبل از تمام‌شدن تمرین منو را می‌بیند و سفارش می‌دهد. آشپزخانه سفارش را همان لحظه دریافت می‌کند و می‌تواند آن را پیگیری کند. محصول قرار نیست فعلاً همه‌چیز باشد؛ فقط قرار است نگذارد سفارش کسی دوباره فراموش شود.', component: SlideEight },
