@@ -6,6 +6,7 @@ import './styles.css'
 import landingImage from '../image.png'
 import ordersImage from '../image (1).png'
 import kitchenImage from '../image (2).png'
+import { destinations } from './destinations.jsx'
 
 const PlaceholderSlide = ({ slide }) => (
   <section className="placeholder-slide" aria-labelledby={`slide-title-${slide.id}`}>
@@ -177,6 +178,68 @@ const SlideTwelve = () => (
   </StorySlide>
 )
 
+const SlideThirteen = () => (
+  <StorySlide className="slide-thirteen" labelledBy="slide-title-13">
+    <div className="slide-thirteen-header">
+      <p className="story-kicker">دنبال ایده‌ات برو</p>
+      <h1 id="slide-title-13">
+        خلق‌کردن برای من سرگرم‌کننده است؛
+        <br />
+        امیدوارم تو هم مسئله‌ی خودت را بسازی.
+      </h1>
+      <p className="final-motto">در زندگی بگرد. کوچک شروع کن. منتشر کن.</p>
+    </div>
+
+    <div className="destination-cards-grid" aria-label="مسیرهای ارتباطی و دنبال‌کردن محصول و فعالیت‌های امیر">
+      {destinations.map((dest) => (
+        <a
+          key={dest.id}
+          href={dest.url}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="glass-link-card destination-card"
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`${dest.label} (${dest.handle}) - باز شدن در برگه جدید`}
+        >
+          <div className="dest-card-top">
+            <div className="dest-badge">
+              <span className="dest-icon-wrap" aria-hidden="true">{dest.icon}</span>
+              <span className="dest-label">{dest.label}</span>
+            </div>
+            <span className="dest-external-indicator" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17 17L7 7" />
+                <path d="M17 7H7v10" />
+              </svg>
+            </span>
+          </div>
+
+          <div className="dest-card-body">
+            <p className="dest-desc">{dest.description}</p>
+            <span className="dest-handle" dir="ltr">{dest.handle}</span>
+          </div>
+
+          <div className="dest-card-bottom">
+            <div className="qr-container">
+              {dest.qr}
+            </div>
+            <span className="qr-hint">اسکن با دوربین گوشی</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </StorySlide>
+)
+
 const slides = [
   { id: 1, title: 'ساختن دیگر گلوگاه نیست', durationSeconds: 30, cumulativeSeconds: 30, notes: 'این روزها بیشتر از همیشه کد می‌زنم، اما کمتر از قبل نگران خودِ کدنویسی‌ام. ابزارهای هوش مصنوعی فاصله‌ی بین یک ایده و یک نمونه‌ی قابل استفاده را خیلی کوتاه کرده‌اند. چیزی که ذهن من را درگیر کرده، دیگر این نیست که آیا می‌توانم چیزی را بسازم؛ سؤال سخت‌تر این است که اصلاً چه چیزی ارزش ساختن دارد؟', component: SlideOne },
   { id: 2, title: 'از چطور بسازم؟ به چه بسازم؟', durationSeconds: 35, cumulativeSeconds: 65, notes: 'قبلاً بخش بزرگی از هزینه و زمان یک ایده صرف پیاده‌سازی می‌شد. امروز می‌توانیم با کمک AI در چند ساعت چیزی بسازیم که قبلاً چند روز یا چند هفته زمان می‌خواست. اما سریع‌تر ساختن لزوماً یعنی بهتر ساختن؟ اگر مسئله‌ی درستی انتخاب نکرده باشیم، فقط با سرعت بیشتری چیزی را ساخته‌ایم که کسی به آن نیاز ندارد.', component: SlideTwo },
@@ -190,7 +253,7 @@ const slides = [
   { id: 10, title: 'سفارش‌ها دیده می‌شوند. نیازها هم.', durationSeconds: 35, cumulativeSeconds: 350, notes: 'سمت دیگر ماجرا آشپزخانه بود. حالا کارکنان فقط یک لیست شفاف از سفارش‌ها ندارند؛ می‌توانند بفهمند کدام غذاها محبوب‌ترند و مشتری‌ها واقعاً چه می‌خواهند. یک مشکل کوچک عملیاتی کم‌کم به داده‌ای تبدیل شد که تصمیم‌های بعدی آشپزخانه را بهتر می‌کند. اما این ارزش اضافه از همان مسئله‌ی ساده شروع شد، نه از یک داشبورد پر از نمودار.', component: SlideTen },
   { id: 11, title: 'سفارش گم‌شده: صفر', durationSeconds: 30, cumulativeSeconds: 380, notes: 'مهم‌ترین نتیجه برای من یک عدد درآمدی عجیب یا هزاران کاربر نبود. نتیجه این بود که مشکل سفارش‌های گم‌شده کاملاً حل شد. یک گروه کوچک از آدم‌های واقعی از چیزی که ساخته بودم استفاده کردند و کارشان بهتر شد. همین برای ادامه‌دادن یک ایده، سیگنال خیلی باارزش‌تری از حدس و هیجان اولیه است.', component: SlideEleven },
   { id: 12, title: 'نسخه‌ی اولت باید اجازه داشته باشد شکست بخورد.', durationSeconds: 45, cumulativeSeconds: 425, notes: 'برداشت من این نیست که با AI هر ایده‌ای موفق می‌شود. برعکس، حالا می‌توانیم شکست را ارزان‌تر کنیم. نسخه‌ی اول قرار نیست کامل باشد؛ حتی باید اجازه داشته باشد شکست بخورد. هدفش این است که چیزی به ما یاد بدهد که با فکرکردن پشت میز یاد نمی‌گیریم. من این روزها تلاش می‌کنم سریع‌تر و ارزان‌تر تجربه کنم؛ تجربه‌ی ساختن یک SaaS برای خودم، با مسئله‌ای که خودم لمس کرده‌ام و با کمک ابزارهای AI.', component: SlideTwelve },
-  { id: 13, title: 'خلق‌کردن برای من سرگرم‌کننده است؛ امیدوارم تو هم مسئله‌ی خودت را بسازی.', durationSeconds: 40, cumulativeSeconds: 465, notes: 'برای من creator بودن قبل از هر چیز سرگرم‌کننده است. pro-food فقط اولین نمونه از این شیوه‌ی زندگی و ساختن است و می‌خواهم تجربه‌ها و پروژه‌های بعدی را هم به اشتراک بگذارم. اگر ایده‌ای داری، منتظر نسخه‌ی کامل یا لحظه‌ی بی‌نقص نمان. در زندگی واقعی دنبالش بگرد، کوچک شروعش کن، آن را دست یک آدم واقعی بده و اجازه بده نتیجه مسیر بعدی را نشانت دهد.', component: PlaceholderSlide },
+  { id: 13, title: 'خلق‌کردن برای من سرگرم‌کننده است؛ امیدوارم تو هم مسئله‌ی خودت را بسازی.', durationSeconds: 40, cumulativeSeconds: 465, notes: 'برای من creator بودن قبل از هر چیز سرگرم‌کننده است. pro-food فقط اولین نمونه از این شیوه‌ی زندگی و ساختن است و می‌خواهم تجربه‌ها و پروژه‌های بعدی را هم به اشتراک بگذارم. اگر ایده‌ای داری، منتظر نسخه‌ی کامل یا لحظه‌ی بی‌نقص نمان. در زندگی واقعی دنبالش بگرد، کوچک شروعش کن، آن را دست یک آدم واقعی بده و اجازه بده نتیجه مسیر بعدی را نشانت دهد.', component: SlideThirteen },
 ]
 
 function formatTime(totalSeconds) {

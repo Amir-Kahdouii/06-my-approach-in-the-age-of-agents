@@ -10,10 +10,16 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
+    "qrcode": "^1.5.4",
     "react": "latest",
     "react-dom": "latest",
     "vazirmatn": "latest",
     "vite": "latest",
     "vite-plugin-singlefile": "latest"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0",
+    "pngjs": "^7.0.0",
+    "puppeteer-core": "^25.13.0"
   }
 }
