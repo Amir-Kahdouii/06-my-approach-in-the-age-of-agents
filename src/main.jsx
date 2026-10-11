@@ -314,16 +314,36 @@ const SlideSix = () => (
   </StorySlide>
 )
 
-const SlideSeven = () => (
-  <StorySlide className="slide-seven" labelledBy="slide-title-7">
-    <div className="focus-copy">
-      <p className="story-kicker">دایره را کوچک کن</p>
-      <h1 id="slide-title-7">نه همه‌ی باشگاه‌ها؛<br />همین باشگاه. همین آدم‌ها. همین مسئله.</h1>
-      <p>اگر اینجا کار کرد، بعداً فرصت گسترش وجود دارد.</p>
-    </div>
-    <div className="focus-circles" aria-hidden="true"><span className="focus-circle">باشگاه‌ها</span><span className="focus-circle">آدم‌ها</span><span className="focus-circle">مسئله‌ها</span><span className="focus-point" /></div>
-  </StorySlide>
-)
+const SlideSeven = () => {
+  const [focused, setFocused] = useState(false)
+
+  const toggleFocus = () => setFocused((current) => !current)
+
+  return (
+    <StorySlide className={`slide-seven ${focused ? 'is-focused' : ''}`} labelledBy="slide-title-7">
+      <div className="focus-copy">
+        <p className="story-kicker">دایره را کوچک کن</p>
+        <h1 id="slide-title-7">مسئله را کوچک کن، مسئلهٔ کوچک را حل کن</h1>
+        <p>اگر اینجا کار کرد، بعداً فرصت گسترش وجود دارد.</p>
+      </div>
+      <button
+        className="focus-trigger"
+        type="button"
+        aria-label="نمایش تمرکز روی یک مسئلهٔ کوچک"
+        aria-pressed={focused}
+        onClick={toggleFocus}
+      >
+        <span className="focus-circles" aria-hidden="true">
+          <span className="focus-circle">باشگاه‌ها</span>
+          <span className="focus-circle">آدم‌ها</span>
+          <span className="focus-circle">مسئله‌ها</span>
+          <span className="focus-point" />
+        </span>
+        {!focused && <span className="focus-trigger-label">برای کوچک‌کردن دایره کلیک کنید</span>}
+      </button>
+    </StorySlide>
+  )
+}
 
 const BrowserFrame = ({ src, alt, className = '', children }) => (
   <div className={`product-browser ${className}`}>
@@ -338,11 +358,15 @@ const BrowserFrame = ({ src, alt, className = '', children }) => (
 const SlideEight = () => (
   <StorySlide className="slide-eight" labelledBy="slide-title-8">
     <div className="product-intro-copy">
-      <p className="story-kicker">pro-food</p>
-      <h1 id="slide-title-8">سفارش قبل از<br />پایان تمرین</h1>
-      <p>یک راه‌حل سبک برای اینکه سفارش، همان لحظه به آشپزخانه برسد.</p>
+      <p className="story-kicker">پرو فود</p>
+      <h1 id="slide-title-8">
+        <span>قبل از پایان تمرین</span>
+        <span>سفارش بده، دیگه</span>
+        <span>نگران سفارشت نباش</span>
+      </h1>
+      <p>تمرین که تموم شد، سفارشتون آماده است</p>
     </div>
-    <BrowserFrame src={landingImage} alt="صفحهٔ اصلی pro-food برای سفارش غذای باشگاه" className="landing-browser" />
+    <BrowserFrame src={landingImage} alt="صفحهٔ اصلی پرو فود برای سفارش غذای باشگاه" className="landing-browser" />
   </StorySlide>
 )
 
@@ -363,8 +387,8 @@ const SlideNine = () => (
 const SlideTen = () => (
   <StorySlide className="slide-ten" labelledBy="slide-title-10">
     <div className="kitchen-heading">
-      <p className="story-kicker">آشپزخانه هم یک کاربر است</p>
-      <h1 id="slide-title-10">سفارش‌ها دیده<br />می‌شوند. نیازها هم.</h1>
+      <p className="story-kicker">مانیتورینگ سفارش‌ها</p>
+      <h1 id="slide-title-10">مدیریت سفارش‌ها و انبارداری برای آشپزخانه ساده‌تر می‌شود</h1>
     </div>
     <div className="kitchen-visual">
       <BrowserFrame src={kitchenImage} alt="پنل کارکنان pro-food شامل سفارش‌ها و آیتم‌های منو" />
@@ -390,7 +414,7 @@ const SlideTwelve = () => (
   <StorySlide className="slide-twelve" labelledBy="slide-title-12">
     <div className="failure-copy">
       <p className="story-kicker">سریع و ارزان تجربه کن</p>
-      <h1 id="slide-title-12">نسخه‌ی اولت باید<br />اجازه داشته باشد<br /><em>شکست بخورد.</em></h1>
+      <h1 id="slide-title-12">نسخهٔ اول احتمال زیاد<br />شکست می‌خوره.<br />اصلاً نگرانش نباش</h1>
     </div>
     <div className="experiment-path" aria-label="کوچک بساز، واقعی امتحان کن، دوباره بساز">
       <span>کوچک بساز</span><i aria-hidden="true" /><span>واقعی امتحان کن</span><i aria-hidden="true" /><span>دوباره بساز</span>
@@ -402,11 +426,7 @@ const SlideThirteen = () => (
   <StorySlide className="slide-thirteen" labelledBy="slide-title-13">
     <div className="slide-thirteen-header">
       <p className="story-kicker">دنبال ایده‌ات برو</p>
-      <h1 id="slide-title-13">
-        خلق‌کردن برای من سرگرم‌کننده است؛
-        <br />
-        امیدوارم تو هم مسئله‌ی خودت را بسازی.
-      </h1>
+      <h1 id="slide-title-13">خلق کن، اشتباه کن، تجربه کن، یاد بگیر</h1>
       <p className="final-motto">در زندگی بگرد. کوچک شروع کن. منتشر کن.</p>
     </div>
 
@@ -467,13 +487,13 @@ const slides = [
   { id: 4, title: 'روش من اینه', durationSeconds: 30, cumulativeSeconds: 130, notes: 'روش من این است: در جریان زندگی مسئله‌ها را پیدا می‌کنم، برای هر مسئله یک نمونه‌ی اولیه و سبک می‌سازم، آن را ارائه می‌دهم و از بازخورد و نتیجه یاد می‌گیرم.', component: SlideFour },
   { id: 5, title: 'بعد از تمام شدن تمرین، غذا هنوز آماده نشده بود', durationSeconds: 40, cumulativeSeconds: 170, notes: 'یکی از همین مسئله‌ها در باشگاه خودمان جلوی چشمم بود. دوستم قبل از تمام‌شدن تمرین غذا سفارش داده بود تا بعد از تمرین آماده باشد. تمرین تمام شد، اما خبری از غذا نبود. بعد از کلی انتظار فهمیدیم آشپز سفارش را فراموش کرده. این فقط یک باگ نرم‌افزاری نبود؛ اصلاً نرم‌افزاری وجود نداشت. یک سفارش شفاهی بین شلوغی باشگاه و آشپزخانه گم شده بود.', component: SlideFive },
   { id: 6, title: 'نسخه‌ی اول را برای همه‌ی باشگاه‌ها ساختم.', durationSeconds: 40, cumulativeSeconds: 210, notes: 'اولین واکنش من همان اشتباه آشنای یک برنامه‌نویس بود: بیایید یک راه‌حل عمومی برای همه‌ی باشگاه‌ها بسازیم. سناریوهای مختلف، نیازهای مختلف و قابلیت‌های زیاد. خیلی زود در contextهای متفاوت و user storyهای بی‌پایان گم شدم. قبل از اینکه یک مسئله را خوب حل کنم، داشتم برای آدم‌هایی که نمی‌شناختم محصول طراحی می‌کردم. نسخه‌ی اول شکست خورد و اتفاقاً لازم بود شکست بخورد.', component: SlideSix },
-  { id: 7, title: 'نه همه‌ی باشگاه‌ها؛ همین باشگاه. همین آدم‌ها. همین مسئله.', durationSeconds: 35, cumulativeSeconds: 245, notes: 'شکست نسخه‌ی اول یک چیز مهم یادم داد: صورت مسئله باید مرز داشته باشد. تصمیم گرفتم فعلاً بازار بزرگ، مقیاس و قابلیت‌های آینده را فراموش کنم. فقط مسئله‌ی خودمان در باشگاه خودمان را برای یک گروه کوچک از آدم‌هایی که می‌شناختم حل کنم. اگر این راه‌حل اینجا کار کرد، بعداً فرصت گسترش وجود دارد.', component: SlideSeven },
-  { id: 8, title: 'سفارش قبل از پایان تمرین', durationSeconds: 35, cumulativeSeconds: 280, notes: 'نتیجه شد pro-food؛ یک راه‌حل سبک برای سفارش آنلاین غذای باشگاه. ورزشکار قبل از تمام‌شدن تمرین منو را می‌بیند و سفارش می‌دهد. آشپزخانه سفارش را همان لحظه دریافت می‌کند و می‌تواند آن را پیگیری کند. محصول قرار نیست فعلاً همه‌چیز باشد؛ فقط قرار است نگذارد سفارش کسی دوباره فراموش شود.', component: SlideEight },
+  { id: 7, title: 'مسئله را کوچک کن، مسئلهٔ کوچک را حل کن', durationSeconds: 35, cumulativeSeconds: 245, notes: 'شکست نسخه‌ی اول یک چیز مهم یادم داد: صورت مسئله باید مرز داشته باشد. تصمیم گرفتم فعلاً بازار بزرگ، مقیاس و قابلیت‌های آینده را فراموش کنم. فقط مسئله‌ی خودمان در باشگاه خودمان را برای یک گروه کوچک از آدم‌هایی که می‌شناختم حل کنم. اگر این راه‌حل اینجا کار کرد، بعداً فرصت گسترش وجود دارد.', component: SlideSeven },
+  { id: 8, title: 'قبل از پایان تمرین سفارش بده، دیگه نگران سفارشت نباش', durationSeconds: 35, cumulativeSeconds: 280, notes: 'نتیجه شد پرو فود؛ یک راه‌حل سبک برای سفارش آنلاین غذای باشگاه. ورزشکار قبل از تمام‌شدن تمرین منو را می‌بیند و سفارش می‌دهد. آشپزخانه سفارش را همان لحظه دریافت می‌کند و می‌تواند آن را پیگیری کند. محصول قرار نیست فعلاً همه‌چیز باشد؛ فقط قرار است نگذارد سفارش کسی دوباره فراموش شود.', component: SlideEight },
   { id: 9, title: 'پرداخت آنلاین؟ حذف شد.', durationSeconds: 35, cumulativeSeconds: 315, notes: 'مثلاً پرداخت آنلاین را حذف کردم. چرا؟ چون در این باشگاه آدم‌ها همدیگر را می‌شناسند و به هم اعتماد دارند. پرداخت می‌تواند در پایان انجام شود. اضافه‌کردن درگاه، خطاهای پرداخت و تسویه فقط تجربه‌ی اول را سنگین‌تر می‌کرد. راه‌حل خوب لزوماً راه‌حلی نیست که قابلیت بیشتری دارد؛ راه‌حلی است که دقیقاً به‌اندازه‌ی مسئله ساخته شده.', component: SlideNine },
-  { id: 10, title: 'سفارش‌ها دیده می‌شوند. نیازها هم.', durationSeconds: 35, cumulativeSeconds: 350, notes: 'سمت دیگر ماجرا آشپزخانه بود. حالا کارکنان فقط یک لیست شفاف از سفارش‌ها ندارند؛ می‌توانند بفهمند کدام غذاها محبوب‌ترند و مشتری‌ها واقعاً چه می‌خواهند. یک مشکل کوچک عملیاتی کم‌کم به داده‌ای تبدیل شد که تصمیم‌های بعدی آشپزخانه را بهتر می‌کند. اما این ارزش اضافه از همان مسئله‌ی ساده شروع شد، نه از یک داشبورد پر از نمودار.', component: SlideTen },
+  { id: 10, title: 'مدیریت سفارش‌ها و انبارداری برای آشپزخانه ساده‌تر می‌شود', durationSeconds: 35, cumulativeSeconds: 350, notes: 'سمت دیگر ماجرا آشپزخانه بود. حالا کارکنان فقط یک لیست شفاف از سفارش‌ها ندارند؛ می‌توانند بفهمند کدام غذاها محبوب‌ترند و مشتری‌ها واقعاً چه می‌خواهند. یک مشکل کوچک عملیاتی کم‌کم به داده‌ای تبدیل شد که تصمیم‌های بعدی آشپزخانه را بهتر می‌کند. اما این ارزش اضافه از همان مسئله‌ی ساده شروع شد، نه از یک داشبورد پر از نمودار.', component: SlideTen },
   { id: 11, title: 'سفارش گم‌شده: صفر', durationSeconds: 30, cumulativeSeconds: 380, notes: 'مهم‌ترین نتیجه برای من یک عدد درآمدی عجیب یا هزاران کاربر نبود. نتیجه این بود که مشکل سفارش‌های گم‌شده کاملاً حل شد. یک گروه کوچک از آدم‌های واقعی از چیزی که ساخته بودم استفاده کردند و کارشان بهتر شد. همین برای ادامه‌دادن یک ایده، سیگنال خیلی باارزش‌تری از حدس و هیجان اولیه است.', component: SlideEleven },
-  { id: 12, title: 'نسخه‌ی اولت باید اجازه داشته باشد شکست بخورد.', durationSeconds: 45, cumulativeSeconds: 425, notes: 'برداشت من این نیست که با AI هر ایده‌ای موفق می‌شود. برعکس، حالا می‌توانیم شکست را ارزان‌تر کنیم. نسخه‌ی اول قرار نیست کامل باشد؛ حتی باید اجازه داشته باشد شکست بخورد. هدفش این است که چیزی به ما یاد بدهد که با فکرکردن پشت میز یاد نمی‌گیریم. من این روزها تلاش می‌کنم سریع‌تر و ارزان‌تر تجربه کنم؛ تجربه‌ی ساختن یک SaaS برای خودم، با مسئله‌ای که خودم لمس کرده‌ام و با کمک ابزارهای AI.', component: SlideTwelve },
-  { id: 13, title: 'خلق‌کردن برای من سرگرم‌کننده است؛ امیدوارم تو هم مسئله‌ی خودت را بسازی.', durationSeconds: 40, cumulativeSeconds: 465, notes: 'برای من creator بودن قبل از هر چیز سرگرم‌کننده است. pro-food فقط اولین نمونه از این شیوه‌ی زندگی و ساختن است و می‌خواهم تجربه‌ها و پروژه‌های بعدی را هم به اشتراک بگذارم. اگر ایده‌ای داری، منتظر نسخه‌ی کامل یا لحظه‌ی بی‌نقص نمان. در زندگی واقعی دنبالش بگرد، کوچک شروعش کن، آن را دست یک آدم واقعی بده و اجازه بده نتیجه مسیر بعدی را نشانت دهد.', component: SlideThirteen },
+  { id: 12, title: 'نسخهٔ اول احتمال زیاد شکست می‌خوره. اصلاً نگرانش نباش', durationSeconds: 45, cumulativeSeconds: 425, notes: 'برداشت من این نیست که با AI هر ایده‌ای موفق می‌شود. برعکس، حالا می‌توانیم شکست را ارزان‌تر کنیم. نسخهٔ اول احتمال زیاد شکست می‌خورد و قرار نیست کامل باشد. هدفش این است که چیزی به ما یاد بدهد که با فکرکردن پشت میز یاد نمی‌گیریم. من این روزها تلاش می‌کنم سریع‌تر و ارزان‌تر تجربه کنم؛ تجربه‌ی ساختن یک SaaS برای خودم، با مسئله‌ای که خودم لمس کرده‌ام و با کمک ابزارهای AI.', component: SlideTwelve },
+  { id: 13, title: 'خلق کن، اشتباه کن، تجربه کن، یاد بگیر', durationSeconds: 40, cumulativeSeconds: 465, notes: 'برای من creator بودن قبل از هر چیز سرگرم‌کننده است. پرو فود فقط اولین نمونه از این شیوه‌ی زندگی و ساختن است و می‌خواهم تجربه‌ها و پروژه‌های بعدی را هم به اشتراک بگذارم. اگر ایده‌ای داری، منتظر نسخه‌ی کامل یا لحظه‌ی بی‌نقص نمان. در زندگی واقعی دنبالش بگرد، کوچک شروعش کن، آن را دست یک آدم واقعی بده و اجازه بده نتیجه مسیر بعدی را نشانت دهد.', component: SlideThirteen },
 ]
 
 function formatTime(totalSeconds) {

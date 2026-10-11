@@ -127,7 +127,7 @@ test('Seam 3: End-to-End Headless QA on file:// with offline mode and navigation
     }))
     assert.ok(img8.naturalWidth > 0, 'Slide 8 image must load successfully')
     assert.equal(img8.objectFit, 'contain', 'Slide 8 image must have object-fit: contain')
-    assert.ok(img8.alt.includes('pro-food'), 'Slide 8 image must have Persian alt text')
+    assert.ok(img8.alt.includes('پرو فود'), 'Slide 8 image must have Persian alt text')
 
     // Advance to Slide 9
     await page.keyboard.press('ArrowRight')
