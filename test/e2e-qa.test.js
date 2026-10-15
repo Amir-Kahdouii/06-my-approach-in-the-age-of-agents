@@ -196,31 +196,29 @@ test('Seam 3: End-to-End Headless QA on file:// with offline mode and navigation
       })
     )
 
-    assert.equal(cards.length, 4, 'Exactly 4 destination cards must exist on slide 13')
+    assert.equal(cards.length, 3, 'Exactly 3 destination cards must exist on slide 13')
 
     const expectedUrls = [
-      'https://pro-food.teyroon.shop',
       'https://github.com/amirmahdikahdouii',
       'https://www.linkedin.com/in/amir-mahdi-kahdouii',
       'https://t.me/amirkahdouii',
     ]
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       assert.equal(cards[i].href, expectedUrls[i], `Card ${i + 1} href must be ${expectedUrls[i]}`)
       assert.equal(cards[i].target, '_blank', `Card ${i + 1} target must be _blank`)
       assert.equal(cards[i].rel, 'noreferrer noopener', `Card ${i + 1} rel must be "noreferrer noopener"`)
     }
 
-    // Verify RTL order: Card 0 (product) is rightmost, Card 3 (telegram) is leftmost
+    // Verify RTL order: GitHub is rightmost and Telegram is leftmost
     assert.ok(cards[0].x > cards[1].x, 'Card 1 must be to the right of Card 2 in RTL')
     assert.ok(cards[1].x > cards[2].x, 'Card 2 must be to the right of Card 3 in RTL')
-    assert.ok(cards[2].x > cards[3].x, 'Card 3 must be to the right of Card 4 in RTL')
 
     // 7. QR Code Decodability using jsQR
     const qrContainers = await page.$$('.qr-container')
-    assert.equal(qrContainers.length, 4, 'Must have 4 QR containers')
+    assert.equal(qrContainers.length, 3, 'Must have 3 QR containers')
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       const qrScreenshot = await qrContainers[i].screenshot({ type: 'png' })
       const decodedUrl = decodeQrFromPngBuffer(qrScreenshot)
       assert.equal(decodedUrl, expectedUrls[i], `QR code ${i + 1} must decode to ${expectedUrls[i]}`)

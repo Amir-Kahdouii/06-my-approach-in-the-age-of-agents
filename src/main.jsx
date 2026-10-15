@@ -430,7 +430,7 @@ const SlideThirteen = () => (
       <p className="final-motto">در زندگی بگرد. کوچک شروع کن. منتشر کن.</p>
     </div>
 
-    <div className="destination-cards-grid" aria-label="مسیرهای ارتباطی و دنبال‌کردن محصول و فعالیت‌های امیر">
+    <div className="destination-cards-grid" aria-label="مسیرهای ارتباطی و دنبال‌کردن فعالیت‌های امیر">
       {destinations.map((dest) => (
         <a
           key={dest.id}

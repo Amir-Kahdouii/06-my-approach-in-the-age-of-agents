@@ -1,3 +1,5 @@
+const retiredProductDestinationId = 'product'
+
 export const destinations = [
   {
     id: 'product',
@@ -142,4 +144,4 @@ export const destinations = [
       </svg>
     ),
   },
-]
+].filter(({ id }) => id !== retiredProductDestinationId)
